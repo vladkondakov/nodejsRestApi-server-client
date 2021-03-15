@@ -1,0 +1,10 @@
+.btn-sort .sort-icon {
+	position: relative;
+	display: inline-block;
+	transition: all 0.3s;
+}
+
+.btn-sort.asc .sort-icon {
+	bottom: -2px;
+	transform: rotate(180deg);
+}

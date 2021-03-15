@@ -1,0 +1,29 @@
+{
+  "name": "nodejsrestapi",
+  "version": "1.0.0",
+  "description": "Institute project, simple REST API ",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "server": "nodemon app.js"
+  },
+  "keywords": [
+    "Node.js",
+    "REST",
+    "API",
+    "example"
+  ],
+  "author": "Vladislav Kondakov <vladisloove.kondakov@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "config": "^3.3.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "joi": "^17.3.0",
+    "jsonwebtoken": "^8.5.1",
+    "lowdb": "^1.0.0",
+    "nodemon": "^2.0.6"
+  }
+}
