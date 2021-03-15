@@ -1,0 +1,247 @@
+{
+  "employees": [
+    {
+      "username": "login",
+      "password": "$2a$12$hK8jzfm803oNQOxkw0WPne3ZAVe1C1oymiDlf/QJQzxzMzZBB3iM2",
+      "name": "Vladislav",
+      "surname": "Kondakov",
+      "dateOfBirth": "1998-03-25",
+      "position": "Junior Software Engineer",
+      "salary": "70000"
+    },
+    {
+      "username": "login1",
+      "password": "$2a$12$rge11ZhtlPrqHvF4JqHFTOUhtPivVoSP1IBEj/OfO5Y9S3QszwO3W",
+      "name": "Vladislav",
+      "surname": "Petrov",
+      "dateOfBirth": "1998-03-25",
+      "position": "Junior Software Engineer",
+      "salary": "80000"
+    },
+    {
+      "username": "login2",
+      "password": "$2a$12$RyVcw5J68gQV1Yg2KJBlHuVOUKidyv1X7.bYh083HszFvdwAocTWy",
+      "name": "Sergey",
+      "surname": "Kondakov",
+      "dateOfBirth": "1998-03-25",
+      "position": "Junior Software Engineer",
+      "salary": "80000"
+    },
+    {
+      "username": "login3",
+      "password": "$2a$12$JweAt0vxsVxPvjH5aLxZmOn561lrzPybW7IIdKbAenzUxgSD3GFza",
+      "name": "Vladislav",
+      "surname": "Kondakov",
+      "dateOfBirth": "1998-03-25",
+      "position": "Junior Software Engineer",
+      "salary": "80000"
+    },
+    {
+      "username": "login4",
+      "password": "$2a$12$kfNODnMclAx6IXINtvGxLew0TrA7GfFq6DoUtrQS4jSZ8/kS.Pzxe",
+      "name": "Vladislav",
+      "surname": "Kondakov",
+      "dateOfBirth": "1998-03-25",
+      "position": "Junior Software Engineer",
+      "salary": "20000"
+    },
+    {
+      "username": "login5",
+      "password": "$2a$12$nxv56nhC5DD.huExAuIRpOjEYj0sHEVPG0Jptdcp84Tsukw9epVQC",
+      "name": "Vladislav",
+      "surname": "Kondakov",
+      "dateOfBirth": "1998-03-25",
+      "position": "Junior Software Engineer",
+      "salary": "10000"
+    },
+    {
+      "username": "login6",
+      "password": "$2a$12$5vdmUmEm1lOuln4e5cmRzeyovc3vsExtzPqGKz6e260AQUWLegz/y",
+      "name": "Vladislav",
+      "surname": "Kondakov",
+      "dateOfBirth": "1998-03-25",
+      "position": "Junior Software Engineer",
+      "salary": "70000"
+    },
+    {
+      "username": "login7",
+      "password": "$2a$12$n8MQvcj.htLgPp4CqJbDt.zRgkl7S95VDn7enmUBaYF7kztpGIxK.",
+      "name": "Vladislav",
+      "surname": "Kondakov",
+      "dateOfBirth": "1998-03-25",
+      "position": "Junior Software Engineer",
+      "salary": "50000"
+    },
+    {
+      "username": "login8",
+      "password": "$2a$12$UmgeN6ha2LVkEBFO.6VMjODN7HCxPp/6XcDKZaeh9MSfPKUGFUpwu",
+      "name": "Vladislav",
+      "surname": "Kondakov",
+      "dateOfBirth": "1998-03-25",
+      "position": "Junior Software Engineer",
+      "salary": "90000"
+    },
+    {
+      "username": "login9",
+      "password": "$2a$12$DSGv9JbqWnV8R73JM.W6iOpK2okWDQx3.rV7AxAb9I7r4JSFX0/eC",
+      "name": "Karl",
+      "surname": "Petrov",
+      "dateOfBirth": "1998-03-25",
+      "position": "Junior Software Engineer",
+      "salary": "25000"
+    },
+    {
+      "username": "login10",
+      "password": "$2a$12$ZuZhR2gmzxX2HG8WH.vq4O/iCFWc8fecOshP9VIf0La3JAu4uJVsy",
+      "name": "Vladislav",
+      "surname": "Kondakov",
+      "dateOfBirth": "1998-03-25",
+      "position": "Junior Software Engineer",
+      "salary": "23000"
+    },
+    {
+      "username": "login11",
+      "password": "$2a$12$85AR3YC0AlpWvr8fcHct6.FL7zltVFpCNrKkKvoZn0l7/y4iQLvDe",
+      "name": "Vladislav",
+      "surname": "Kondakov",
+      "dateOfBirth": "1998-03-25",
+      "position": "Junior Software Engineer",
+      "salary": "32000"
+    },
+    {
+      "username": "login12",
+      "password": "$2a$12$QASc2nJs00N914whcB5Wi./wffeORGUzg.3eUrdYltmbB5ajfa0Zi",
+      "name": "Igor",
+      "surname": "Kondakov",
+      "dateOfBirth": "1998-03-25",
+      "position": "Junior Software Engineer",
+      "salary": "33000"
+    },
+    {
+      "username": "login13",
+      "password": "$2a$12$ob/.le3DSJzhwAfBquSh4ur6GHfpNT/iWksk3lDQALHCo/jAnMB/G",
+      "name": "Karl",
+      "surname": "Kondakov",
+      "dateOfBirth": "1998-03-25",
+      "position": "Junior Software Engineer",
+      "salary": "34000"
+    },
+    {
+      "username": "login14",
+      "password": "$2a$12$4wXdKngsupI5.Y5CxMVTGehVQ/v4R1hmtnv0FP52deVW24tOV8ZmO",
+      "name": "Karl",
+      "surname": "Kondakov",
+      "dateOfBirth": "1998-03-25",
+      "position": "Junior Software Engineer",
+      "salary": "31000"
+    },
+    {
+      "username": "login15",
+      "password": "$2a$12$9hSRak./apPRNucmifb/5Oi73z0yiKCQdiHHvqYQmhUdzXPflwUXi",
+      "name": "Karl",
+      "surname": "Maximov",
+      "dateOfBirth": "1998-03-25",
+      "position": "Junior Software Engineer",
+      "salary": "52000"
+    },
+    {
+      "username": "login16",
+      "password": "$2a$12$AaAbGVmX1xrVDOJMVYzZd.GP8je3TcSJnARXsQtHALL0TNJW6edki",
+      "name": "Karl",
+      "surname": "Kondakov",
+      "dateOfBirth": "1998-03-25",
+      "position": "Junior Software Engineer",
+      "salary": "45000"
+    },
+    {
+      "username": "login17",
+      "password": "$2a$12$zPL/0YUBDxhDQoQaQL12ae1GXuihpFGjTvEdPXfQH980ngo6CobD.",
+      "name": "Karl",
+      "surname": "Kondakov",
+      "dateOfBirth": "1998-03-25",
+      "position": "Junior Software Engineer",
+      "salary": "49000"
+    },
+    {
+      "username": "login18",
+      "password": "$2a$12$hnqb2HEBIYbj4ZjOOmzMLOJNupglVNx8ZPm5FANflkdNsGz1b3mm.",
+      "name": "Karl",
+      "surname": "Kondakov",
+      "dateOfBirth": "1998-03-25",
+      "position": "Junior Software Engineer",
+      "salary": "78000"
+    },
+    {
+      "username": "login19",
+      "password": "$2a$12$c8gKiGQFKZ77PIb4SsjK2O.hdaX3AlgJUgQv0hvU/7mA4R7Ea24Ya",
+      "name": "Vladislav",
+      "surname": "Kondakov",
+      "dateOfBirth": "1998-03-25",
+      "position": "Junior Software Engineer",
+      "salary": "71000"
+    },
+    {
+      "username": "login20",
+      "password": "$2a$12$ehYYwXnzrFNWYbbXoM5itOPONBf6HKg0te0gg5nlKew5JE9VVZCQO",
+      "name": "Karl",
+      "surname": "Kondakov",
+      "dateOfBirth": "1998-03-25",
+      "position": "Junior Software Engineer",
+      "salary": "91000"
+    },
+    {
+      "username": "login21",
+      "password": "$2a$12$JvzFP.wV8ePqqu5ceXdpD.oYCtM9CwwlXZdi3UHAmskmEPYAWMC8K",
+      "name": "Karl",
+      "surname": "Kondakov",
+      "dateOfBirth": "1998-03-25",
+      "position": "Junior Software Engineer",
+      "salary": "82000"
+    },
+    {
+      "username": "login22",
+      "password": "$2a$12$GCBCp2tn1EsMtGH8256MuuuiLwqSkks.ZwFQdoQpy7Rcp1LpN1cfi",
+      "name": "Karl",
+      "surname": "Kondakov",
+      "dateOfBirth": "1998-03-25",
+      "position": "Junior Software Engineer",
+      "salary": "82000"
+    },
+    {
+      "username": "login23",
+      "password": "$2a$12$6bI./rE5ZFIsxwvhcWVQnO76GNOYi0uAX5q3JzBn2F3nP0BSvZzsi",
+      "name": "Vlad",
+      "surname": "Kondakov",
+      "dateOfBirth": "1998-03-25",
+      "position": "Junior Software Engineer",
+      "salary": "12000"
+    },
+    {
+      "username": "login24",
+      "password": "$2a$12$lZc.PYwLG2mh4TCayeP76uAwYvOZEjNXjkEJdVcE37PvWA8/aCquO",
+      "name": "Vladi",
+      "surname": "Kondakov",
+      "dateOfBirth": "1998-03-25",
+      "position": "Junior Software Engineer",
+      "salary": "30000"
+    },
+    {
+      "username": "login26",
+      "password": "$2a$12$zkwHiEujWwp1y/1pz.wP6OymMPFP/r/Hod4L43DYq0x.0LigH48jW",
+      "name": "Vladi",
+      "surname": "Kond",
+      "dateOfBirth": "1998-03-25",
+      "position": "Software Engineer",
+      "salary": "44000"
+    },
+    {
+      "username": "login27",
+      "password": "$2a$12$Z.olpg.N/ZCXkrZRnqf.GuajDWtygxHUxm8vg0bqsEKvGdHJ0gk3a",
+      "name": "Vl",
+      "surname": "Kondakov",
+      "dateOfBirth": "1998-03-25",
+      "position": "Junior Backend Developer",
+      "salary": "24000"
+    }
+  ]
+}

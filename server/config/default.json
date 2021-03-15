@@ -1,0 +1,9 @@
+{
+    "PORT": 9000,
+    "JWT_ACCESS_SECRET": "P0vyzVbIROVZ8gkqH026pQvEc9UPFLri",
+    "JWT_REFRESH_SECRET": "2LpqwwzZ5QFzHTmIq2045TF5b43OLFsF",
+    "ACCESS_TOKEN_TIME": "5m",
+    "REFRESH_TOKEN_TIME": "1h",
+    "OFFSET": 1,
+    "LIMIT": 25
+}
