@@ -1,4 +1,4 @@
-import getEmployeeData from './employees.js'
+import { getEmployeeData } from './employees.js'
 
 const limit = 5
 
@@ -65,7 +65,7 @@ const fillEmployees = async (employeesToFill) => {
 
         if ($tdElement.html()) {
             $tdElement.addClass("current-user")
-            $tdElement.html('<a id="view-profile" href="#">Edit</a>')
+            $tdElement.html('<a id="view-profile" href="#" data-bs-toggle="modal" data-bs-target="#modalEditEmployee">Edit</a>')
             $tdElement.on("click", e => {
                 $(`.filled[data-id=${username}]`).find('td.view-profile').hasClass("current-user") ? getEmployeeData() : e.preventDefault()
             })

@@ -10,6 +10,8 @@
 			integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
 			crossorigin="anonymous"
 		/>
+
+		<!-- employees table template -->
 		<script id="template-employees-item" type="text/template">
 			<tr class="table-dark filled" data-id="<%= username %>">
 			  <td class="table-dark  number"><%= number %></td>
@@ -21,6 +23,38 @@
 			  <td class="table-dark view-profile">Edit</td>
 			</tr>
 		</script>
+		
+		<!-- Edit employee template (insert in body)-->
+		<script id='template-employee-edit-modal' type="text/template">
+			<div class="form-row">
+				<div class="form-group col-md-4">
+					<label for="inputEditName">Name</label>
+					<input type="text" class="form-control" id="inputEditName" placeholder="Enter name" value="<%= name %>"/>
+				</div>
+				<div class="form-group col-md-4">
+					<label for="inputEditSurname">Surname</label>
+					<input type="text" class="form-control" id="inputEditSurname" placeholder="Enter surname" value="<%= surname %>"/>
+				</div>
+				<div class="form-group col-md-4">
+					<label for="inputEditDateOfBirth">Date of birth</label>
+					<input type="text" class="form-control" id="inputEditDateOfBirth" placeholder="Enter date of birth" value="<%= dateOfBirth %>"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="inputEditSalary">Salary</label>
+				<input type="text" class="form-control" id="inputEditSalary" placeholder="Enter salary" value="<%= salary %>"/>
+			</div>
+			<div class="form-group">
+				<label for="inputEditPosition">Position</label>
+				<select id="inputEditPosition" class="form-control">
+					<option value="Junior Software Engineer">Junior Software Engineer</option>
+					<option value="Software Engineer">Software Engineer</option>
+					<option value="Junior Backend Developer">Junior Backend Developer</option>
+				</select>
+			</div>
+		</script>
+
+
 		<link rel="stylesheet" href="../css/index.css" />
 		<title>Document</title>
 	</head>
@@ -110,6 +144,32 @@
 			</div>
 		</div>
 
+		<!-- Edit employee modal -->
+		<div
+			class="modal fade"
+			id="modalEditEmployee"
+			tabindex="-1"
+			role="dialog"
+			aria-labelledby="editemployeeModalLabel"
+			aria-hidden="true"
+		>
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="singUpModalLabel">Employee</h5>
+					</div>
+					<div class="modal-body">
+						<form id="edit-employee-form">
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button id="edit-employee" type="button" class="btn btn-primary">Save changes</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<!-- Modal Sign In -->
 		<div
 			class="modal fade"
@@ -127,12 +187,12 @@
 					<div class="modal-body">
 						<form id="sign-in-form">
 							<div class="form-group">
-								<label for="inputUsername">Username</label>
-								<input type="text" class="form-control" id="inputUsername" placeholder="Enter username" />
+								<label for="signInInputUsername">Username</label>
+								<input type="text" class="form-control" id="signInInputUsername" placeholder="Enter username" />
 							</div>
 							<div class="form-group">
-								<label for="inputPassword">Password</label>
-								<input type="password" class="form-control" id="inputPassword" placeholder="Enter password" />
+								<label for="signInInputPassword">Password</label>
+								<input type="password" class="form-control" id="signInInputPassword" placeholder="Enter password" />
 							</div>
 						</form>
 					</div>
@@ -161,45 +221,45 @@
 					<div class="modal-body">
 						<form id="sign-up-form">
 							<div class="form-group">
-								<label for="inputUsername">Username</label>
-								<input type="text" class="form-control" id="inputUsername" placeholder="Enter username" />
+								<label for="signUpInputUsername">Username</label>
+								<input type="text" class="form-control" id="signUpInputUsername" placeholder="Enter username" />
 							</div>
 							<div class="form-row">
 								<div class="form-group col-md-6">
-									<label for="inputPassword">Password</label>
-									<input type="password" class="form-control" id="inputPassword" placeholder="password" />
+									<label for="signUpInputPassword">Password</label>
+									<input type="password" class="form-control" id="signUpInputPassword" placeholder="Password" />
 								</div>
 								<div class="form-group col-md-6">
-									<label for="inputConfirmationPassword">Confirmation Password</label>
+									<label for="signUpInputConfirmationPassword">Confirmation Password</label>
 									<input
 										type="password"
 										class="form-control"
-										id="inputConfirmationPassword"
+										id="signUpInputConfirmationPassword"
 										placeholder="Confirm your password"
 									/>
 								</div>
 							</div>
 							<div class="form-row">
 								<div class="form-group col-md-4">
-									<label for="inputName">Name</label>
-									<input type="text" class="form-control" id="inputName" placeholder="Enter name" />
+									<label for="signUpInputName">Name</label>
+									<input type="text" class="form-control" id="signUpInputName" placeholder="Enter name" />
 								</div>
 								<div class="form-group col-md-4">
-									<label for="inputSurname">Surname</label>
-									<input type="text" class="form-control" id="inputSurname" placeholder="Enter surname" />
+									<label for="signUpInputSurname">Surname</label>
+									<input type="text" class="form-control" id="signUpInputSurname" placeholder="Enter surname" />
 								</div>
 								<div class="form-group col-md-4">
-									<label for="inputDateOfBirth">Date of birth</label>
-									<input type="text" class="form-control" id="inputDateOfBirth" placeholder="Enter date of birth" />
+									<label for="signUpInputDateOfBirth">Date of birth</label>
+									<input type="text" class="form-control" id="signUpInputDateOfBirth" placeholder="Enter date of birth" />
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputSalary">Salary</label>
-								<input type="text" class="form-control" id="inputSalary" placeholder="Enter salary" />
+								<label for="signUpInputSalary">Salary</label>
+								<input type="text" class="form-control" id="signUpInputSalary" placeholder="Enter salary" />
 							</div>
 							<div class="form-group">
-								<label for="inputPosition">Position</label>
-								<select id="inputPosition" class="form-control">
+								<label for="signUpInputPosition">Position</label>
+								<select id="signUpInputPosition" class="form-control">
 									<option selected>Junior Software Engineer</option>
 									<option>Software Engineer</option>
 									<option>Junior Backend Developer</option>

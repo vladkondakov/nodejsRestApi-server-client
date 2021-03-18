@@ -1,12 +1,12 @@
 const signUp = async () => {
-    const $username = $("#sign-up-form #inputUsername").val()
-    const $password = $("#sign-up-form #inputPassword").val()
-    const $confirmationPassword = $("#sign-up-form #inputConfirmationPassword").val()
-    const $name = $("#sign-up-form #inputName").val()
-    const $surname = $("#sign-up-form #inputSurname").val()
-    const $dateOfBirth = $("#sign-up-form #inputDateOfBirth").val()
-    const $salary = $("#sign-up-form #inputSalary").val()
-    const $position = $("#sign-up-form #inputPosition").val()
+    const $username = $("#signUpInputUsername").val()
+    const $password = $("#signUpInputPassword").val()
+    const $confirmationPassword = $("#signUpInputConfirmationPassword").val()
+    const $name = $("#signUpInputName").val()
+    const $surname = $("#signUpInputSurname").val()
+    const $dateOfBirth = $("#signUpInputDateOfBirth").val()
+    const $salary = $("#signUpInputSalary").val()
+    const $position = $("#signUpInputPosition").val()
 
     const reqData = {
         employeeData: {
@@ -33,8 +33,8 @@ const signUp = async () => {
 }
 
 const signIn = async () => {
-    const $username = $("#sign-in-form #inputUsername").val()
-    const $password = $("#sign-in-form #inputPassword").val()
+    const $username = $("#signInInputUsername").val()
+    const $password = $("#signInInputPassword").val()
 
     const reqData = {
         userData: {
