@@ -237,11 +237,20 @@
     {
       "username": "login27",
       "password": "$2a$12$Z.olpg.N/ZCXkrZRnqf.GuajDWtygxHUxm8vg0bqsEKvGdHJ0gk3a",
-      "name": "Vl",
+      "name": "Vlad",
       "surname": "Kondakov",
       "dateOfBirth": "1998-03-25",
-      "position": "Junior Backend Developer",
-      "salary": "24000"
+      "position": "Software Engineer",
+      "salary": "32000"
+    },
+    {
+      "username": "login28",
+      "password": "$2a$12$DWJv8bkq3OQUtbCpTqEh0OOPwfCG6NQQQ2tqGlvg76veFXZss2NQu",
+      "name": "Vladis",
+      "surname": "Kond",
+      "dateOfBirth": "1998-03-25",
+      "position": "Software Engineer",
+      "salary": "25000"
     }
   ]
 }
