@@ -1,23 +1,23 @@
+import { getItemFromLocalStorage, formUrl, addQueryParamsToURL } from '../helpers/index.js'
+import { constants } from '../config/constants.js'
+
+const BASE_EMPLOYEES_URL = `${constants.BASE_URL}/employees` 
+
 const getEmployeesData = async (queryParams) => {
-  const urlToGetEmployees = new URL('http://localhost:9000/employees/')
+  const urlPath = formUrl(BASE_EMPLOYEES_URL)
+  const urlToGetEmployees = addQueryParamsToURL(urlPath, queryParams)
 
-  for (const [key, value] of Object.entries(queryParams)) {
-    urlToGetEmployees.searchParams.append(`${key}`, `${value}`)
-  }
+  const response = await fetch(urlToGetEmployees)
+  const employeesData = await response.json()
 
-  const employeesData = await fetch(urlToGetEmployees)
-  const employeesDataJSON = await employeesData.json()
-
-  return employeesDataJSON
+  return employeesData
 }
 
-
-// Вообще, этот метод заполняет модалку. Оставить тут получение данных, остальное вынести в script.js
 const getEmployeeData = async () => {
-  const { accessToken, username } = JSON.parse(localStorage.getItem('currentUser'))
-  const url = `http://localhost:9000/employees/${username}`
+  const { accessToken, username } = getItemFromLocalStorage('currentUser')
+  const urlToGetEmployees =  formUrl(BASE_EMPLOYEES_URL, username)
 
-  const response = await fetch(url, {
+  const response = await fetch(urlToGetEmployees, {
     method: 'GET',
     headers: {
         'Authorization': `Bearer ${accessToken}`,
@@ -26,48 +26,22 @@ const getEmployeeData = async () => {
   })
 
   const employeeData = await response.json()
-  const employee = employeeData.embeddedItems
 
-  const $templateEmployeeEditItem = $("#template-employee-edit-modal").html()
-	const compiledEmployeeData = _.template($templateEmployeeEditItem)
-	const employeeHtml = compiledEmployeeData(employee)
-
-  $("#edit-employee-form").append(employeeHtml)
-
-  const $selectElement = $(`#inputEditPosition option[value="${employee.position}"]`)
-  $selectElement.attr("selected", true)
+  return employeeData.embeddedItems
 }
 
-// Вообще, этот метод заполняет модалку. Оставить тут получение данных, остальное вынести в script.js
-const editEmployeeData = async () => {
-    const { accessToken, username } = JSON.parse(localStorage.getItem('currentUser'))
-    const url = `http://localhost:9000/employees/${username}`
+const editEmployeeData = async (reqData) => {
+  const { accessToken, username } = getItemFromLocalStorage('currentUser')
+  const urlToEditEmployee = formUrl(BASE_EMPLOYEES_URL, username)
 
-    // Получение параметров тоже отдельно ?
-    const $name = $("#inputEditName").val()
-    const $surname = $("#inputEditSurname").val()
-    const $dateOfBirth = $("#inputEditDateOfBirth").val()
-    const $salary = $("#inputEditSalary").val()
-    const $position = $("#inputEditPosition").val()
-
-    const reqData = {
-        name: $name,
-        surname: $surname,
-        dateOfBirth: $dateOfBirth,
-        salary: $salary,
-        position: $position
-    }
-
-    const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(reqData)
-    })
+  const response = await fetch(urlToEditEmployee, {
+    method: 'POST',
+    headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(reqData)
+  })
 }
 
-$("#edit-employee").on('click', editEmployeeData)
-
-export { getEmployeeData, editEmployeeData }
+export { getEmployeesData, getEmployeeData, editEmployeeData }

@@ -1,10 +1,21 @@
-import { getEmployeeData } from './employees.js'
-import { getEmployeesWithSetNumber } from '../helpers/employees.js'
+import { getEmployeeData, getEmployeesData, editEmployeeData } from './employees.js'
+import { getEmployeesWithSetNumber, getItemFromLocalStorage } from '../helpers/index.js'
 import { constants } from '../config/constants.js'
 
-const getPaginatedSortedFilteredEmployees = async () => {
+const getEmployeeFillModal = async () => {
+  const employee = await getEmployeeData()
 
-  //move this somewhere
+  const $templateEmployeeEditItem = $("#template-employee-edit-modal").html()
+	const compiledEmployeeData = _.template($templateEmployeeEditItem)
+	const employeeHtml = compiledEmployeeData(employee)
+
+  $("#edit-employee-form").append(employeeHtml)
+
+  const $selectElement = $(`#inputEditPosition option[value="${employee.position}"]`)
+  $selectElement.attr("selected", true)
+}
+
+const getPaginatedSortedFilteredEmployees = async () => {
   const getParamsToGetEmployees = () => {
     const $name = $("#filterNameInput").val().toLowerCase()
     const $surname = $("#filterSurnameInput").val().toLowerCase()
@@ -32,21 +43,7 @@ const getPaginatedSortedFilteredEmployees = async () => {
   }
 
   const queryParams = getParamsToGetEmployees()
-
-  const fetchEmployees = async (queryParams) => {
-    const urlToGetEmployees = new URL('http://localhost:9000/employees/')
-  
-    for (const [key, value] of Object.entries(queryParams)) {
-      urlToGetEmployees.searchParams.append(`${key}`, `${value}`)
-    }
-
-    const employeesData = await fetch(urlToGetEmployees)
-    const employeesDataJSON = await employeesData.json()
-
-    return employeesDataJSON
-  }
-
-  const employees = await fetchEmployees(queryParams)
+  const employees = await getEmployeesData(queryParams)
 
   return employees
 }
@@ -59,10 +56,10 @@ const fillEmployees = async (employeesToFill) => {
   const $offset = +$("#page-number").text()
 
   const employeesHtml = getEmployeesWithSetNumber(employeesToFill, compiledRow, $offset)
-	$("#table-body-employees").append(employeesHtml)
+	
+  $("#table-body-employees").append(employeesHtml)
 
-  // put it to the beginning of file
-  const currentUser = JSON.parse(localStorage.getItem('currentUser'))
+  const currentUser = getItemFromLocalStorage('currentUser')
 
   if (currentUser && currentUser.username) {
     const { username } = currentUser
@@ -72,7 +69,7 @@ const fillEmployees = async (employeesToFill) => {
       $tdElement.addClass("current-user")
       $tdElement.html('<a id="view-profile" href="#" data-bs-toggle="modal" data-bs-target="#modalEditEmployee">Edit</a>')
       $tdElement.on("click", e => {
-        $(`.filled[data-id=${username}]`).find('td.view-profile').hasClass("current-user") ? getEmployeeData() : e.preventDefault()
+        $(`.filled[data-id=${username}]`).find('td.view-profile').hasClass("current-user") ? getEmployeeFillModal() : e.preventDefault()
       })
     } else if ($tdElement.hasClass("current-user")){
       $tdElement.removeClass("current-user")
@@ -125,9 +122,27 @@ $(document).ready(async () => {
   await fillEmployees(pageEmployees)
 
 	$("#previous-page").on("click", e => {
-        $("#previous-page").hasClass("disabled") ? e.preventDefault() : handlePaginationOnPrevClick()
+      $("#previous-page").hasClass("disabled") ? e.preventDefault() : handlePaginationOnPrevClick()
 	})
 	$("#next-page").on("click", e => {
-        $("#next-page").hasClass("disabled") ? e.preventDefault() : handlePaginationOnNextClick()
-    })
+      $("#next-page").hasClass("disabled") ? e.preventDefault() : handlePaginationOnNextClick()
+  })
+
+  $("#edit-employee").on('click', async () => {
+    const $name = $("#inputEditName").val()
+    const $surname = $("#inputEditSurname").val()
+    const $dateOfBirth = $("#inputEditDateOfBirth").val()
+    const $salary = $("#inputEditSalary").val()
+    const $position = $("#inputEditPosition").val()
+  
+    const valuesFromEditModal = {
+      name: $name,
+      surname: $surname,
+      dateOfBirth: $dateOfBirth,
+      salary: $salary,
+      position: $position
+    }
+  
+    await editEmployeeData(valuesFromEditModal)
+  })
 })
