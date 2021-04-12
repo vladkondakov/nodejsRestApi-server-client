@@ -44,4 +44,22 @@ const editEmployeeData = async (reqData) => {
   })
 }
 
-export { getEmployeesData, getEmployeeData, editEmployeeData }
+$("#edit-employee").on('click', async () => {
+  const $name = $("#inputEditName").val()
+  const $surname = $("#inputEditSurname").val()
+  const $dateOfBirth = $("#inputEditDateOfBirth").val()
+  const $salary = $("#inputEditSalary").val()
+  const $position = $("#inputEditPosition").val()
+
+  const valuesFromEditModal = {
+    name: $name,
+    surname: $surname,
+    dateOfBirth: $dateOfBirth,
+    salary: $salary,
+    position: $position
+  }
+
+  await editEmployeeData(valuesFromEditModal)
+})
+
+export { getEmployeesData, getEmployeeData}

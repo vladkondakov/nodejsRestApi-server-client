@@ -1,4 +1,4 @@
-import { getEmployeeData, getEmployeesData, editEmployeeData } from './employees.js'
+import { getEmployeeData, getEmployeesData } from './employees.js'
 import { getEmployeesWithSetNumber, getItemFromLocalStorage } from '../helpers/index.js'
 import { constants } from '../config/constants.js'
 
@@ -126,23 +126,5 @@ $(document).ready(async () => {
 	})
 	$("#next-page").on("click", e => {
       $("#next-page").hasClass("disabled") ? e.preventDefault() : handlePaginationOnNextClick()
-  })
-
-  $("#edit-employee").on('click', async () => {
-    const $name = $("#inputEditName").val()
-    const $surname = $("#inputEditSurname").val()
-    const $dateOfBirth = $("#inputEditDateOfBirth").val()
-    const $salary = $("#inputEditSalary").val()
-    const $position = $("#inputEditPosition").val()
-  
-    const valuesFromEditModal = {
-      name: $name,
-      surname: $surname,
-      dateOfBirth: $dateOfBirth,
-      salary: $salary,
-      position: $position
-    }
-  
-    await editEmployeeData(valuesFromEditModal)
   })
 })
