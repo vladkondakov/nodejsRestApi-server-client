@@ -20,7 +20,7 @@ const handlePagination = async () => {
     $nextPageBtn.removeClass('disabled');
   }
 
-  await fillEmployees(pageEmployees);
+  fillEmployees(pageEmployees);
 };
 
 const handlePaginationOnPrevClick = async () => {

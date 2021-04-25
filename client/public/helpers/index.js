@@ -55,10 +55,19 @@ const getPaginatedSortedFilteredEmployees = async () => {
   return employees;
 };
 
+const calcExpiresInTime = (tokenLifeTime) => {
+  const minutes = parseInt(tokenLifeTime.slice(0, tokenLifeTime.length - 1), 10);
+  const currentDate = new Date();
+  const expiresInTime = new Date(currentDate.getTime() + minutes * 60000);
+
+  return expiresInTime;
+};
+
 export {
   getEmployeesWithSetNumber,
   getItemFromLocalStorage,
   formUrl,
   addQueryParamsToURL,
   getPaginatedSortedFilteredEmployees,
+  calcExpiresInTime,
 };

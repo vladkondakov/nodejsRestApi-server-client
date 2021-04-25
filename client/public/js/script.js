@@ -7,11 +7,11 @@ import { getValuesFromEditModal } from '../helpers/jquery-helpers.js';
 $(document).ready(async () => {
   const { pageEmployees } = await getPaginatedSortedFilteredEmployees();
 
-  await fillEmployees(pageEmployees);
+  fillEmployees(pageEmployees);
 
   $('#applyFilter').on('click', async () => {
     const { pageEmployees } = await getPaginatedSortedFilteredEmployees();
-    await fillEmployees(pageEmployees);
+    fillEmployees(pageEmployees);
   });
 
   $('#applySortBySalary').on('click', async () => {
@@ -19,7 +19,7 @@ $(document).ready(async () => {
     $('#applySortBySalary').addClass('applied');
 
     const { pageEmployees } = await getPaginatedSortedFilteredEmployees();
-    await fillEmployees(pageEmployees);
+    fillEmployees(pageEmployees);
   });
 
   $('#edit-employee').on('click', async () => {

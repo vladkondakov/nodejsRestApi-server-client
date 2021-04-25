@@ -2,6 +2,7 @@ import {
   getItemFromLocalStorage,
   formUrl,
   getPaginatedSortedFilteredEmployees,
+  calcExpiresInTime,
 } from '../helpers/index.js';
 import { constants } from '../config/constants.js';
 import { fillEmployees } from './fillers.js';
@@ -37,11 +38,8 @@ const signIn = async (reqData) => {
     });
 
     const accessData = await response.json();
-    const { accessToken, refreshToken, expiresIn } = accessData;
-
-    const minutes = parseInt(expiresIn.slice(0, expiresIn.length - 1));
-    const currentDate = new Date();
-    const expiresInTime = new Date(currentDate.getTime() + minutes * 60000);
+    const { accessToken, refreshToken, expiresIn: tokenLifeTime } = accessData;
+    const expiresInTime = calcExpiresInTime(tokenLifeTime);
 
     const currentUser = {
       username: reqData.userData?.username,
@@ -109,14 +107,18 @@ $('#sign-up').on('click', async () => {
     },
   };
 
-  await signUp(signUpReqData);
-  await signIn(signInReqData);
+  try {
+    await signUp(signUpReqData);
+    await signIn(signInReqData);
+  } catch (e) {
+    console.log('%s%v', 'color: red;', e);
+  }
+
+  $('#authorization-group').hide();
 
   const { pageEmployees: currentPageEmployees } = await getPaginatedSortedFilteredEmployees();
 
-  await fillEmployees(currentPageEmployees);
-
-  $('#authorization-group').hide();
+  fillEmployees(currentPageEmployees);
 });
 
 $('#sign-in').on('click', async () => {
@@ -134,17 +136,25 @@ $('#sign-in').on('click', async () => {
 
   const { pageEmployees: currentPageEmployees } = await getPaginatedSortedFilteredEmployees();
 
-  await fillEmployees(currentPageEmployees);
+  fillEmployees(currentPageEmployees);
 
   $('#authorization-group').hide();
 });
 
 $('#logout').on('click', async () => {
-  await logout();
+  try {
+    await logout();
+  } catch (e) {
+    console.log('%c%s', 'color: red;', e);
+  }
 
-  const { pageEmployees: currentPageEmployees } = await getPaginatedSortedFilteredEmployees();
-
-  await fillEmployees(currentPageEmployees);
+  getPaginatedSortedFilteredEmployees()
+    .then((currentPageEmployees) => {
+      fillEmployees(currentPageEmployees);
+    })
+    .catch((e) => {
+      console.log('%c%s', 'color: red;', e);
+    });
 
   $('#authorization-group').show();
 });

@@ -15,7 +15,7 @@ const getEmployeeFillModal = async () => {
   $selectElement.attr('selected', true);
 };
 
-const fillEmployees = async (employeesToFill) => {
+const fillEmployees = (employeesToFill) => {
   $('.filled').remove();
 
   const $templateEmployeesItem = $('#template-employees-item').html();
