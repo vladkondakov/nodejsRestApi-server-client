@@ -1,88 +1,93 @@
-import { getItemFromLocalStorage, formUrl, getPaginatedSortedFilteredEmployees } from '../helpers/index.js'
-import { constants } from '../config/constants.js'
-import { fillEmployees } from './fillers.js'
+import {
+  getItemFromLocalStorage,
+  formUrl,
+  getPaginatedSortedFilteredEmployees,
+} from '../helpers/index.js';
+import { constants } from '../config/constants.js';
+import { fillEmployees } from './fillers.js';
 
-const BASE_AUTH_URL = `${constants.BASE_URL}/auth` 
+const BASE_AUTH_URL = `${constants.BASE_URL}/auth`;
 
 const signUp = async (reqData) => {
   try {
-    const urlToSignUp = formUrl(BASE_AUTH_URL, 'signup')
+    const urlToSignUp = formUrl(BASE_AUTH_URL, 'signup');
 
     const response = await fetch(urlToSignUp, {
       method: 'POST',
       headers: {
-          'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(reqData)
-    })
+      body: JSON.stringify(reqData),
+    });
   } catch (e) {
-    console.log(e)
+    console.log(e);
   }
-  
-}
+};
 
 const signIn = async (reqData) => {
-  const urlToSignIn = formUrl(BASE_AUTH_URL, 'login')
-  
+  const urlToSignIn = formUrl(BASE_AUTH_URL, 'login');
+
   try {
     const response = await fetch(urlToSignIn, {
       method: 'POST',
       headers: {
-          'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(reqData)
-    })
+      body: JSON.stringify(reqData),
+    });
 
-    const accessData = await response.json()
-    const { accessToken, refreshToken, expiresIn } = accessData
+    const accessData = await response.json();
+    const { accessToken, refreshToken, expiresIn } = accessData;
 
-    const minutes = parseInt(expiresIn.slice(0, expiresIn.length - 1))
-    const currentDate = new Date()
-    const expiresInTime = new Date(currentDate.getTime() + minutes * 60000)
+    const minutes = parseInt(expiresIn.slice(0, expiresIn.length - 1));
+    const currentDate = new Date();
+    const expiresInTime = new Date(currentDate.getTime() + minutes * 60000);
 
     const currentUser = {
       username: reqData.userData?.username,
       accessToken,
       refreshToken,
-      expiresInTime
-    }
+      expiresInTime,
+    };
 
-    localStorage.setItem('currentUser', JSON.stringify(currentUser))
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
   } catch (e) {
-    console.log(e)
+    console.log(e);
   }
-}
+};
 
 const logout = async () => {
-  const { refreshToken } = getItemFromLocalStorage('currentUser')
-  const reqData = { refreshToken }
+  const { refreshToken } = getItemFromLocalStorage('currentUser');
+  const reqData = { refreshToken };
 
-  const urlToLogout = formUrl(BASE_AUTH_URL, 'logout')
+  const urlToLogout = formUrl(BASE_AUTH_URL, 'logout');
 
   fetch(urlToLogout, {
     method: 'DELETE',
     headers: {
-        'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(reqData)
-  }).then((response) => {
-    if(response.status === 204) {
-        localStorage.removeItem('currentUser')
-    }
-  }).catch((err) => {
-    console.log('Server error', err)
-  })  
-}
+    body: JSON.stringify(reqData),
+  })
+    .then((response) => {
+      if (response.status === 204) {
+        localStorage.removeItem('currentUser');
+      }
+    })
+    .catch((err) => {
+      console.log('Server error', err);
+    });
+};
 
-$("#sign-up").on('click', async () => {
-  const $username = $("#signUpInputUsername").val()
-  const $password = $("#signUpInputPassword").val()
-  const $confirmationPassword = $("#signUpInputConfirmationPassword").val()
-  const $name = $("#signUpInputName").val()
-  const $surname = $("#signUpInputSurname").val()
-  const $dateOfBirth = $("#signUpInputDateOfBirth").val()
-  const $salary = $("#signUpInputSalary").val()
-  const $position = $("#signUpInputPosition").val()
+$('#sign-up').on('click', async () => {
+  const $username = $('#signUpInputUsername').val();
+  const $password = $('#signUpInputPassword').val();
+  const $confirmationPassword = $('#signUpInputConfirmationPassword').val();
+  const $name = $('#signUpInputName').val();
+  const $surname = $('#signUpInputSurname').val();
+  const $dateOfBirth = $('#signUpInputDateOfBirth').val();
+  const $salary = $('#signUpInputSalary').val();
+  const $position = $('#signUpInputPosition').val();
 
   const signUpReqData = {
     employeeData: {
@@ -93,53 +98,53 @@ $("#sign-up").on('click', async () => {
       surname: $surname,
       dateOfBirth: $dateOfBirth,
       position: $position,
-      salary: $salary
-    }
-  }
+      salary: $salary,
+    },
+  };
 
   const signInReqData = {
     userData: {
       username: $username,
-      password: $password
-    }
-  }
+      password: $password,
+    },
+  };
 
-  await signUp(signUpReqData)
-  await signIn(signInReqData)
+  await signUp(signUpReqData);
+  await signIn(signInReqData);
 
-  const { pageEmployees: currentPageEmployees } = await getPaginatedSortedFilteredEmployees()
+  const { pageEmployees: currentPageEmployees } = await getPaginatedSortedFilteredEmployees();
 
-  await fillEmployees(currentPageEmployees)
+  await fillEmployees(currentPageEmployees);
 
-  $('#authorization-group').hide()
-})
+  $('#authorization-group').hide();
+});
 
-$("#sign-in").on('click', async () => {
-  const $username = $("#signInInputUsername").val()
-  const $password = $("#signInInputPassword").val()
+$('#sign-in').on('click', async () => {
+  const $username = $('#signInInputUsername').val();
+  const $password = $('#signInInputPassword').val();
 
   const reqData = {
     userData: {
       username: $username,
-      password: $password
-    }
-  }
+      password: $password,
+    },
+  };
 
-  await signIn(reqData)
+  await signIn(reqData);
 
-  const { pageEmployees: currentPageEmployees } = await getPaginatedSortedFilteredEmployees()
+  const { pageEmployees: currentPageEmployees } = await getPaginatedSortedFilteredEmployees();
 
-  await fillEmployees(currentPageEmployees)
+  await fillEmployees(currentPageEmployees);
 
-  $('#authorization-group').hide()
-})
+  $('#authorization-group').hide();
+});
 
-$("#logout").on('click', async () => {
-  await logout()
+$('#logout').on('click', async () => {
+  await logout();
 
-  const { pageEmployees: currentPageEmployees } = await getPaginatedSortedFilteredEmployees()
+  const { pageEmployees: currentPageEmployees } = await getPaginatedSortedFilteredEmployees();
 
-  await fillEmployees(currentPageEmployees)
+  await fillEmployees(currentPageEmployees);
 
-  $('#authorization-group').show()
-})
+  $('#authorization-group').show();
+});
