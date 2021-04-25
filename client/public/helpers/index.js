@@ -1,6 +1,4 @@
 import { constants } from '../config/constants.js';
-import { getParamsToGetEmployees } from './jquery-helpers.js';
-import { getEmployeesData } from '../js/employees.js';
 
 const getEmployeesWithSetNumber = (employees, compiledRow, offset) => {
   const { LIMIT } = constants;
@@ -48,13 +46,6 @@ const addQueryParamsToURL = (url, queryParams) => {
   return url;
 };
 
-const getPaginatedSortedFilteredEmployees = async () => {
-  const queryParams = getParamsToGetEmployees();
-  const employees = await getEmployeesData(queryParams);
-
-  return employees;
-};
-
 const calcExpiresInTime = (tokenLifeTime) => {
   const minutes = parseInt(tokenLifeTime.slice(0, tokenLifeTime.length - 1), 10);
   const currentDate = new Date();
@@ -68,6 +59,5 @@ export {
   getItemFromLocalStorage,
   formUrl,
   addQueryParamsToURL,
-  getPaginatedSortedFilteredEmployees,
   calcExpiresInTime,
 };

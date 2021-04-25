@@ -1,11 +1,5 @@
-import {
-  getItemFromLocalStorage,
-  formUrl,
-  getPaginatedSortedFilteredEmployees,
-  calcExpiresInTime,
-} from '../helpers/index.js';
+import { getItemFromLocalStorage, formUrl, calcExpiresInTime } from '../helpers/index.js';
 import { constants } from '../config/constants.js';
-import { fillEmployees } from './fillers.js';
 
 const BASE_AUTH_URL = `${constants.BASE_URL}/auth`;
 
@@ -77,84 +71,4 @@ const logout = async () => {
     });
 };
 
-$('#sign-up').on('click', async () => {
-  const $username = $('#signUpInputUsername').val();
-  const $password = $('#signUpInputPassword').val();
-  const $confirmationPassword = $('#signUpInputConfirmationPassword').val();
-  const $name = $('#signUpInputName').val();
-  const $surname = $('#signUpInputSurname').val();
-  const $dateOfBirth = $('#signUpInputDateOfBirth').val();
-  const $salary = $('#signUpInputSalary').val();
-  const $position = $('#signUpInputPosition').val();
-
-  const signUpReqData = {
-    employeeData: {
-      username: $username,
-      password: $password,
-      confirmationPassword: $confirmationPassword,
-      name: $name,
-      surname: $surname,
-      dateOfBirth: $dateOfBirth,
-      position: $position,
-      salary: $salary,
-    },
-  };
-
-  const signInReqData = {
-    userData: {
-      username: $username,
-      password: $password,
-    },
-  };
-
-  try {
-    await signUp(signUpReqData);
-    await signIn(signInReqData);
-  } catch (e) {
-    console.log('%s%v', 'color: red;', e);
-  }
-
-  $('#authorization-group').hide();
-
-  const { pageEmployees: currentPageEmployees } = await getPaginatedSortedFilteredEmployees();
-
-  fillEmployees(currentPageEmployees);
-});
-
-$('#sign-in').on('click', async () => {
-  const $username = $('#signInInputUsername').val();
-  const $password = $('#signInInputPassword').val();
-
-  const reqData = {
-    userData: {
-      username: $username,
-      password: $password,
-    },
-  };
-
-  await signIn(reqData);
-
-  const { pageEmployees: currentPageEmployees } = await getPaginatedSortedFilteredEmployees();
-
-  fillEmployees(currentPageEmployees);
-
-  $('#authorization-group').hide();
-});
-
-$('#logout').on('click', async () => {
-  try {
-    await logout();
-  } catch (e) {
-    console.log('%c%s', 'color: red;', e);
-  }
-
-  getPaginatedSortedFilteredEmployees()
-    .then((currentPageEmployees) => {
-      fillEmployees(currentPageEmployees);
-    })
-    .catch((e) => {
-      console.log('%c%s', 'color: red;', e);
-    });
-
-  $('#authorization-group').show();
-});
+export { signIn, signUp, logout };

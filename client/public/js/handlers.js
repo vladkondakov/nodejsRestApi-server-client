@@ -1,4 +1,4 @@
-import { getPaginatedSortedFilteredEmployees } from '../helpers/index.js';
+import { getPaginatedSortedFilteredEmployees } from './employees.js';
 import { fillEmployees } from './fillers.js';
 import { getOffset } from '../helpers/jquery-helpers.js';
 

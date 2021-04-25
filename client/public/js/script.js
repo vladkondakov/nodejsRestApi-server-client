@@ -1,45 +1,29 @@
-import { editEmployeeData } from './employees.js';
 import { fillEmployees } from './fillers.js';
-import { getPaginatedSortedFilteredEmployees } from '../helpers/index.js';
-import { handlePaginationOnNextClick, handlePaginationOnPrevClick } from './handlers.js';
-import { getValuesFromEditModal } from '../helpers/jquery-helpers.js';
+import { getPaginatedSortedFilteredEmployees } from './employees.js';
+
+import {
+  filterClick,
+  sortBySalaryClick,
+  editEmployeeClick,
+  previousPageClick,
+  nextPageClick,
+  signInClick,
+  signUpClick,
+  logoutClick,
+} from './events.js';
 
 $(document).ready(async () => {
   const { pageEmployees } = await getPaginatedSortedFilteredEmployees();
 
   fillEmployees(pageEmployees);
 
-  $('#applyFilter').on('click', async () => {
-    const { pageEmployees } = await getPaginatedSortedFilteredEmployees();
-    fillEmployees(pageEmployees);
-  });
+  $('#applyFilter').on('click', filterClick);
+  $('#applySortBySalary').on('click', sortBySalaryClick);
+  $('#edit-employee').on('click', editEmployeeClick);
+  $('#previous-page').on('click', previousPageClick);
+  $('#next-page').on('click', nextPageClick);
 
-  $('#applySortBySalary').on('click', async () => {
-    $('#applySortBySalary').toggleClass('asc');
-    $('#applySortBySalary').addClass('applied');
-
-    const { pageEmployees } = await getPaginatedSortedFilteredEmployees();
-    fillEmployees(pageEmployees);
-  });
-
-  $('#edit-employee').on('click', async () => {
-    const valuesFromEditModal = getValuesFromEditModal();
-    await editEmployeeData(valuesFromEditModal);
-  });
-
-  $('#previous-page').on('click', (e) => {
-    if ($('#previous-page').hasClass('disabled')) {
-      e.preventDefault();
-    } else {
-      handlePaginationOnPrevClick();
-    }
-  });
-
-  $('#next-page').on('click', (e) => {
-    if ($('#next-page').hasClass('disabled')) {
-      e.preventDefault();
-    } else {
-      handlePaginationOnNextClick();
-    }
-  });
+  $('#sign-up').on('click', signUpClick);
+  $('#sign-in').on('click', signInClick);
+  $('#logout').on('click', logoutClick);
 });

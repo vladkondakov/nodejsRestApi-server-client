@@ -2,7 +2,7 @@ import { getEmployeesWithSetNumber, getItemFromLocalStorage } from '../helpers/i
 import { getEmployeeData } from './employees.js';
 import { getOffset } from '../helpers/jquery-helpers.js';
 
-const getEmployeeFillModal = async () => {
+const getEmployeeFillEditModal = async () => {
   const employee = await getEmployeeData();
 
   const $templateEmployeeEditItem = $('#template-employee-edit-modal').html();
@@ -42,7 +42,7 @@ const fillEmployees = (employeesToFill) => {
         const viewProfileEl = $(`.filled[data-id=${username}]`).find('td.view-profile');
 
         if (viewProfileEl.hasClass('current-user')) {
-          getEmployeeFillModal();
+          getEmployeeFillEditModal();
         } else {
           e.preventDefault();
         }

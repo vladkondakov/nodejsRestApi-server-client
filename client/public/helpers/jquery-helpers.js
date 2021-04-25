@@ -1,5 +1,11 @@
 import { constants } from '../config/constants.js';
 
+const disableViewProfile = () => {
+  const { username } = getItemFromLocalStorage('currentUser');
+  const $viewProfileEl = $(`.filled[data-id=${username}]`).find('td.view-profile');
+  $viewProfileEl.removeClass('current-user');
+};
+
 const getOffset = () => +$('#page-number').text();
 
 const getParamsToGetEmployees = () => {
@@ -46,4 +52,4 @@ const getValuesFromEditModal = () => {
   return valuesFromEditModal;
 };
 
-export { getParamsToGetEmployees, getOffset, getValuesFromEditModal };
+export { getParamsToGetEmployees, getOffset, getValuesFromEditModal, disableViewProfile };
