@@ -1,46 +1,56 @@
-import { getItemFromLocalStorage, formUrl, addQueryParamsToURL } from '../helpers/index.js'
+import { getItemFromLocalStorage, formUrl, getPaginatedSortedFilteredEmployees } from '../helpers/index.js'
 import { constants } from '../config/constants.js'
+import { fillEmployees } from './fillers.js'
 
 const BASE_AUTH_URL = `${constants.BASE_URL}/auth` 
 
 const signUp = async (reqData) => {
-  const urlToSignUp = formUrl(BASE_AUTH_URL, 'signup')
+  try {
+    const urlToSignUp = formUrl(BASE_AUTH_URL, 'signup')
 
-  const response = await fetch(urlToSignUp, {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(reqData)
-  })
+    const response = await fetch(urlToSignUp, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(reqData)
+    })
+  } catch (e) {
+    console.log(e)
+  }
+  
 }
 
 const signIn = async (reqData) => {
   const urlToSignIn = formUrl(BASE_AUTH_URL, 'login')
+  
+  try {
+    const response = await fetch(urlToSignIn, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(reqData)
+    })
 
-  const response = await fetch(urlToSignIn, {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(reqData)
-  })
+    const accessData = await response.json()
+    const { accessToken, refreshToken, expiresIn } = accessData
 
-  const accessData = await response.json()
-  const { accessToken, refreshToken, expiresIn } = accessData
+    const minutes = parseInt(expiresIn.slice(0, expiresIn.length - 1))
+    const currentDate = new Date()
+    const expiresInTime = new Date(currentDate.getTime() + minutes * 60000)
 
-  const minutes = parseInt(expiresIn.slice(0, expiresIn.length - 1))
-  const currentDate = new Date()
-  const expiresInTime = new Date(currentDate.getTime() + minutes * 60000)
+    const currentUser = {
+      username: reqData.userData?.username,
+      accessToken,
+      refreshToken,
+      expiresInTime
+    }
 
-  const currentUser = {
-    username: reqData.userData?.username,
-    accessToken,
-    refreshToken,
-    expiresInTime
+    localStorage.setItem('currentUser', JSON.stringify(currentUser))
+  } catch (e) {
+    console.log(e)
   }
-
-  localStorage.setItem('currentUser', JSON.stringify(currentUser))
 }
 
 const logout = async () => {
@@ -74,7 +84,7 @@ $("#sign-up").on('click', async () => {
   const $salary = $("#signUpInputSalary").val()
   const $position = $("#signUpInputPosition").val()
 
-  const reqData = {
+  const signUpReqData = {
     employeeData: {
       username: $username,
       password: $password,
@@ -87,7 +97,21 @@ $("#sign-up").on('click', async () => {
     }
   }
 
-  await signUp(reqData)
+  const signInReqData = {
+    userData: {
+      username: $username,
+      password: $password
+    }
+  }
+
+  await signUp(signUpReqData)
+  await signIn(signInReqData)
+
+  const { pageEmployees: currentPageEmployees } = await getPaginatedSortedFilteredEmployees()
+
+  await fillEmployees(currentPageEmployees)
+
+  $('#authorization-group').hide()
 })
 
 $("#sign-in").on('click', async () => {
@@ -102,6 +126,20 @@ $("#sign-in").on('click', async () => {
   }
 
   await signIn(reqData)
+
+  const { pageEmployees: currentPageEmployees } = await getPaginatedSortedFilteredEmployees()
+
+  await fillEmployees(currentPageEmployees)
+
+  $('#authorization-group').hide()
 })
 
-$("#logout").on('click', logout)
+$("#logout").on('click', async () => {
+  await logout()
+
+  const { pageEmployees: currentPageEmployees } = await getPaginatedSortedFilteredEmployees()
+
+  await fillEmployees(currentPageEmployees)
+
+  $('#authorization-group').show()
+})

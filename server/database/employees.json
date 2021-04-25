@@ -251,6 +251,24 @@
       "dateOfBirth": "1998-03-25",
       "position": "Software Engineer",
       "salary": "25000"
+    },
+    {
+      "username": "qwerty",
+      "password": "$2a$12$CLjMHhtvIwTrsb9/MjK4CeVl9Tn9OiRiV1dF0GEtWtBfBZyhpeg.K",
+      "name": "qwe",
+      "surname": "qWer",
+      "dateOfBirth": "1999-03-20",
+      "position": "Junior Software Engineer",
+      "salary": "15000"
+    },
+    {
+      "username": "qwe",
+      "password": "$2a$12$BjmBBQYU.xR8104l7PW3uuZKrWnWxTD3F0DPGNm7Yk/7SFCpnxJcm",
+      "name": "qwe",
+      "surname": "qWeasdas",
+      "dateOfBirth": "1999-03-20",
+      "position": "Software Engineer",
+      "salary": "17000"
     }
   ]
 }
