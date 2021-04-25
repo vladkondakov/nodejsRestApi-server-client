@@ -8,7 +8,9 @@ module.exports = {
   },
   extends: ['eslint:recommended', 'airbnb-base', 'prettier'],
   plugins: ['prettier'],
-  globals: {},
+  globals: {
+    _: true,
+  },
   parserOptions: {
     ecmaVersion: 2020,
     sourceType: 'module',
