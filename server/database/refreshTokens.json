@@ -1,3 +1,5 @@
 {
-  "refreshTokens": []
+  "refreshTokens": [
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImxvZ2luMjciLCJpYXQiOjE2MTkzOTEwMDMsImV4cCI6MTYxOTM5NDYwM30.w8TkzhCE-QZIWzzOZBMJ-zy0b7FbPwrWZS26bAy-qb4"
+  ]
 }

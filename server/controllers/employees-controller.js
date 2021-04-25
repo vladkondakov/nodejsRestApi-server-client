@@ -33,9 +33,9 @@ const updateEmployee = async (req, res, next) => {
     const username = req.currentUser.username;
 
     employee.username = username;
-    await Employee.updateEmployee(employee);
+    const updatedEmployee = await Employee.updateEmployee(employee);
 
-    return res.status(200).json({ message: `Employee with username: ${username} was updated` });
+    return res.status(200).json({ embeddedItems: updatedEmployee });
 }
 
 const deleteEmployee = async (req, res, next) => {

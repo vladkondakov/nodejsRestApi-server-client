@@ -7,14 +7,22 @@ class Employee {
         if (!employee) {
             return null;
         }
+        
         return employeeMapper(employee);
     }
 
     static async updateEmployee(employee) {
         const existingEmployee = await LowDBOperations.getElement('employees', { username: employee.username });
+
+        if (!employee) {
+          return null
+        }
+        
         employee.password = existingEmployee.password;
-        await LowDBOperations.updateElement('employees', { username: employee.username }, employee)
-    }
+        const updatedElement = await LowDBOperations.updateElement('employees', { username: employee.username }, employee)
+        
+        return updatedElement 
+      }
 
     static async deleteEmployee(username) {
         await LowDBOperations.deleteElement('employees', { username });

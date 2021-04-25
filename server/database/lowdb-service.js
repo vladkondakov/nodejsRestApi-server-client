@@ -36,7 +36,15 @@ class LowDBOperations {
 
     static async updateElement(dbName, updateParam, element) {
         const db = await this.connect(dbName);
-        await db.get(dbName).find(updateParam).assign(element).write();
+        const existingElement = db.get(dbName).find(updateParam)
+
+        if (!existingElement) {
+          return null
+        }
+
+        existingElement.assign(element).write();
+        const updatedItem = await db.get(dbName).find(updateParam).value()
+        return updatedItem || null
     }
 }
 
