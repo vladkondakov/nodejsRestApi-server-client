@@ -1,5 +1,6 @@
 import { getEmployeesWithSetNumber, getItemFromLocalStorage } from '../helpers/index.js';
 import { getEmployeeData } from './employees.js';
+import { getOffset } from '../helpers/jquery-helpers.js';
 
 const getEmployeeFillModal = async () => {
   const employee = await getEmployeeData();
@@ -19,7 +20,7 @@ const fillEmployees = async (employeesToFill) => {
 
   const $templateEmployeesItem = $('#template-employees-item').html();
   const compiledRow = _.template($templateEmployeesItem);
-  const $offset = +$('#page-number').text();
+  const $offset = getOffset();
 
   const employeesHtml = getEmployeesWithSetNumber(employeesToFill, compiledRow, $offset);
 
@@ -36,10 +37,15 @@ const fillEmployees = async (employeesToFill) => {
       $tdElement.html(
         '<a id="view-profile" href="#" data-bs-toggle="modal" data-bs-target="#modalEditEmployee">Edit</a>'
       );
+
       $tdElement.on('click', (e) => {
-        $(`.filled[data-id=${username}]`).find('td.view-profile').hasClass('current-user')
-          ? getEmployeeFillModal()
-          : e.preventDefault();
+        const viewProfileEl = $(`.filled[data-id=${username}]`).find('td.view-profile');
+
+        if (viewProfileEl.hasClass('current-user')) {
+          getEmployeeFillModal();
+        } else {
+          e.preventDefault();
+        }
       });
     } else if ($tdElement.hasClass('current-user')) {
       $tdElement.removeClass('current-user');
