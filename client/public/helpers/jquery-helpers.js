@@ -1,4 +1,5 @@
 import { constants } from '../config/constants.js';
+import { getItemFromLocalStorage } from './index.js';
 
 const disableViewProfile = () => {
   const { username } = getItemFromLocalStorage('currentUser');

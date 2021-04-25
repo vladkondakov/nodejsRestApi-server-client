@@ -18,22 +18,17 @@ const getEmployeeData = async () => {
   const { accessToken, username } = getItemFromLocalStorage('currentUser');
   const urlToGetEmployees = formUrl(BASE_EMPLOYEES_URL, username);
 
-  try {
-    const response = await fetch(urlToGetEmployees, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
-      },
-    });
+  const response = await fetch(urlToGetEmployees, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
+  });
 
-    const employeeData = await response.json();
+  const employeeData = await response.json();
 
-    return employeeData.embeddedItems;
-  } catch (e) {
-    disableViewProfile();
-    return { employeeData: null };
-  }
+  return employeeData?.embeddedItems;
 };
 
 const editEmployeeData = async (reqData) => {
