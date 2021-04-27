@@ -4,48 +4,50 @@ import { constants } from '../config/constants.js';
 const BASE_AUTH_URL = `${constants.BASE_URL}/auth`;
 
 const signUp = async (reqData) => {
-  try {
-    const urlToSignUp = formUrl(BASE_AUTH_URL, 'signup');
+  const urlToSignUp = formUrl(BASE_AUTH_URL, 'signup');
 
-    const response = await fetch(urlToSignUp, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(reqData),
-    });
-  } catch (e) {
-    console.log(e);
+  const response = await fetch(urlToSignUp, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(reqData),
+  });
+
+  if (!response.ok) {
+    // console.log('%s%v%c', 'color: red;', response.status, response.statusText);
+    const err = new Error(`${response.status}: ${response.statusText}`);
+    throw err;
   }
 };
 
 const signIn = async (reqData) => {
   const urlToSignIn = formUrl(BASE_AUTH_URL, 'login');
+  const response = await fetch(urlToSignIn, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(reqData),
+  });
 
-  try {
-    const response = await fetch(urlToSignIn, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(reqData),
-    });
-
-    const accessData = await response.json();
-    const { accessToken, refreshToken, expiresIn: tokenLifeTime } = accessData;
-    const expiresInTime = calcExpiresInTime(tokenLifeTime);
-
-    const currentUser = {
-      username: reqData.userData?.username,
-      accessToken,
-      refreshToken,
-      expiresInTime,
-    };
-
-    localStorage.setItem('currentUser', JSON.stringify(currentUser));
-  } catch (e) {
-    console.log(e);
+  if (!response.ok) {
+    const err = new Error(`${response.status}: ${response.statusText}`);
+    throw err;
   }
+
+  const accessData = await response.json();
+  const { accessToken, refreshToken, expiresIn: tokenLifeTime } = accessData;
+  const expiresInTime = calcExpiresInTime(tokenLifeTime);
+
+  const currentUser = {
+    username: reqData.userData?.username,
+    accessToken,
+    refreshToken,
+    expiresInTime,
+  };
+
+  localStorage.setItem('currentUser', JSON.stringify(currentUser));
 };
 
 const logout = async () => {
@@ -64,6 +66,11 @@ const logout = async () => {
     .then((response) => {
       if (response.status === 204) {
         localStorage.removeItem('currentUser');
+      }
+
+      if (!response.ok) {
+        const err = new Error(`${response.status}: ${response.statusText}`);
+        throw err;
       }
     })
     .catch((err) => {

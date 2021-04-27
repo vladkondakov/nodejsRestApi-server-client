@@ -79,15 +79,15 @@ const signUpClick = async () => {
   try {
     await signUp(signUpReqData);
     await signIn(signInReqData);
+
+    $('#authorization-group').hide();
+
+    const { pageEmployees: currentPageEmployees } = await getPaginatedSortedFilteredEmployees();
+
+    fillEmployees(currentPageEmployees);
   } catch (e) {
-    console.log('%s%v', 'color: red;', e);
+    console.log('%c%s', 'color: red;', e);
   }
-
-  $('#authorization-group').hide();
-
-  const { pageEmployees: currentPageEmployees } = await getPaginatedSortedFilteredEmployees();
-
-  fillEmployees(currentPageEmployees);
 };
 
 const signInClick = async () => {

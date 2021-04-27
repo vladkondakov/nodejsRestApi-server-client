@@ -1,6 +1,6 @@
 import { getItemFromLocalStorage, formUrl, addQueryParamsToURL } from '../helpers/index.js';
 import { constants } from '../config/constants.js';
-import { getParamsToGetEmployees, disableViewProfile } from '../helpers/jquery-helpers.js';
+import { getParamsToGetEmployees } from '../helpers/jquery-helpers.js';
 
 const BASE_EMPLOYEES_URL = `${constants.BASE_URL}/employees`;
 
@@ -9,6 +9,12 @@ const getEmployeesData = async (queryParams) => {
   const urlToGetEmployees = addQueryParamsToURL(urlPath, queryParams);
 
   const response = await fetch(urlToGetEmployees);
+
+  if (!response.ok) {
+    const err = new Error(`${response.status}: ${response.statusText}`);
+    throw err;
+  }
+
   const employeesData = await response.json();
 
   return employeesData;
@@ -26,6 +32,11 @@ const getEmployeeData = async () => {
     },
   });
 
+  if (!response.ok) {
+    const err = new Error(`${response.status}: ${response.statusText}`);
+    throw err;
+  }
+
   const employeeData = await response.json();
 
   return employeeData?.embeddedItems;
@@ -35,22 +46,21 @@ const editEmployeeData = async (reqData) => {
   const { accessToken, username } = getItemFromLocalStorage('currentUser');
   const urlToEditEmployee = formUrl(BASE_EMPLOYEES_URL, username);
 
-  let updatedEmployee;
+  const response = await fetch(urlToEditEmployee, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(reqData),
+  });
 
-  try {
-    const response = await fetch(urlToEditEmployee, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(reqData),
-    });
-
-    updatedEmployee = await response.json();
-  } catch (e) {
-    console.log('%s%v', 'color: red;', e);
+  if (!response.ok) {
+    const err = new Error(`${response.status}: ${response.statusText}`);
+    throw err;
   }
+
+  const updatedEmployee = await response.json();
 
   if (updatedEmployee) {
     return updatedEmployee.embeddedItems;
@@ -59,11 +69,17 @@ const editEmployeeData = async (reqData) => {
   return null;
 };
 
+//
 const getPaginatedSortedFilteredEmployees = async () => {
   const queryParams = getParamsToGetEmployees();
-  const employees = await getEmployeesData(queryParams);
 
-  return employees;
+  try {
+    const employees = await getEmployeesData(queryParams);
+    return employees;
+  } catch (e) {
+    console.log(e);
+    return { pageEmployees: null };
+  }
 };
 
 export { getEmployeesData, getEmployeeData, editEmployeeData, getPaginatedSortedFilteredEmployees };
