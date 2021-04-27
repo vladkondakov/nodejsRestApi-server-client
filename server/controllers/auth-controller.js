@@ -15,7 +15,7 @@ const signUp = async (req, res, next) => {
     const employee = await LowDBOperations.getElement('employees', { username });
     
     if (employee) {
-        const err = ApiError.badRequest('Employee exists.');
+        const err = ApiError.badRequest('Employee exists');
         return next(err);
     }
 
