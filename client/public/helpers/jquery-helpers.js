@@ -35,6 +35,60 @@ const getParamsToGetEmployees = () => {
   };
 };
 
+const getParamsToSignUp = () => {
+  const $username = $('#signUpInputUsername').val();
+  const $password = $('#signUpInputPassword').val();
+  const $confirmationPassword = $('#signUpInputConfirmationPassword').val();
+  const $name = $('#signUpInputName').val();
+  const $surname = $('#signUpInputSurname').val();
+  const $dateOfBirth = $('#signUpInputDateOfBirth').val();
+  const $salary = $('#signUpInputSalary').val();
+  const $position = $('#signUpInputPosition').val();
+
+  const signUpReqData = {
+    employeeData: {
+      username: $username,
+      password: $password,
+      confirmationPassword: $confirmationPassword,
+      name: $name,
+      surname: $surname,
+      dateOfBirth: $dateOfBirth,
+      position: $position,
+      salary: $salary,
+    },
+  };
+
+  return signUpReqData;
+};
+
+const getParamsToSignIn = (eventName) => {
+  if (eventName === 'signUpClick') {
+    const $username = $('#signUpInputUsername').val();
+    const $password = $('#signUpInputPassword').val();
+
+    const signInReqData = {
+      userData: {
+        username: $username,
+        password: $password,
+      },
+    };
+
+    return signInReqData;
+  }
+
+  const $username = $('#signInInputUsername').val();
+  const $password = $('#signInInputPassword').val();
+
+  const signInReqData = {
+    userData: {
+      username: $username,
+      password: $password,
+    },
+  };
+
+  return signInReqData;
+};
+
 const getValuesFromEditModal = () => {
   const $name = $('#inputEditName').val();
   const $surname = $('#inputEditSurname').val();
@@ -53,4 +107,11 @@ const getValuesFromEditModal = () => {
   return valuesFromEditModal;
 };
 
-export { getParamsToGetEmployees, getOffset, getValuesFromEditModal, disableViewProfile };
+export {
+  getParamsToGetEmployees,
+  getOffset,
+  getValuesFromEditModal,
+  disableViewProfile,
+  getParamsToSignIn,
+  getParamsToSignUp,
+};
