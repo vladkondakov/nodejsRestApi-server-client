@@ -64,6 +64,7 @@ class Employee {
         return employees;
     }
 
+    // calculate previous according to employees length
     static async getPageEmployees(employees, offset, limit) {
         const results = {};
         const startIndex = (offset - 1) * limit;

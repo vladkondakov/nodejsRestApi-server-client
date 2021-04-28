@@ -269,6 +269,24 @@
       "dateOfBirth": "1999-03-20",
       "position": "Software Engineer",
       "salary": "17000"
+    },
+    {
+      "username": "login30",
+      "password": "$2a$12$9s7v0Om3apQXtsSFxw25VepZ3TlG6vLNCOqBAcQBxGrpUZhkyPZi6",
+      "name": "asd",
+      "surname": "57",
+      "dateOfBirth": "1999-03-20",
+      "position": "Software Engineer",
+      "salary": "15000"
+    },
+    {
+      "username": "login31",
+      "password": "$2a$12$yzLvmZX/BmAVcyS.DacyiudbXxMCnalym60JubaVhhHeSanSYnFrO",
+      "name": "Sergey",
+      "surname": "S",
+      "dateOfBirth": "1999-03-27",
+      "position": "Software Engineer",
+      "salary": "30000"
     }
   ]
 }

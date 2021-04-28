@@ -56,26 +56,22 @@ const logout = async () => {
 
   const urlToLogout = formUrl(BASE_AUTH_URL, 'logout');
 
-  fetch(urlToLogout, {
+  const response = await fetch(urlToLogout, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(reqData),
-  })
-    .then((response) => {
-      if (response.status === 204) {
-        localStorage.removeItem('currentUser');
-      }
+  });
 
-      if (!response.ok) {
-        const err = new Error(`${response.status}: ${response.statusText}`);
-        throw err;
-      }
-    })
-    .catch((err) => {
-      console.log('Server error', err);
-    });
+  if (response.status === 204) {
+    localStorage.removeItem('currentUser');
+  }
+
+  if (!response.ok) {
+    const err = new Error(`${response.status}: ${response.statusText}`);
+    throw err;
+  }
 };
 
 export { signIn, signUp, logout };

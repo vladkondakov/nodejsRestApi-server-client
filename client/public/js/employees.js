@@ -55,6 +55,8 @@ const editEmployeeData = async (reqData) => {
     body: JSON.stringify(reqData),
   });
 
+  console.log(response);
+
   if (!response.ok) {
     const err = new Error(`${response.status}: ${response.statusText}`);
     throw err;

@@ -19,12 +19,8 @@ const getEmployeesWithSetNumber = (employees, compiledRow, offset) => {
 };
 
 const getItemFromLocalStorage = (itemName) => {
-  try {
-    const item = JSON.parse(localStorage.getItem(itemName));
-    return item;
-  } catch (e) {
-    console.error(e);
-  }
+  const item = JSON.parse(localStorage.getItem(itemName));
+  return item;
 };
 
 const formUrl = (...urlParts) => {

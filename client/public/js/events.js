@@ -1,6 +1,10 @@
 import { fillEmployees } from './fillers.js';
 import { handlePaginationOnNextClick, handlePaginationOnPrevClick } from './handlers.js';
-import { getValuesFromEditModal } from '../helpers/jquery-helpers.js';
+import {
+  getValuesFromEditModal,
+  getParamsToSignIn,
+  getParamsToSignUp,
+} from '../helpers/jquery-helpers.js';
 import { editEmployeeData, getPaginatedSortedFilteredEmployees } from './employees.js';
 import { signIn, signUp, logout } from './auth.js';
 
@@ -47,34 +51,8 @@ const nextPageClick = (e) => {
 };
 
 const signUpClick = async () => {
-  const $username = $('#signUpInputUsername').val();
-  const $password = $('#signUpInputPassword').val();
-  const $confirmationPassword = $('#signUpInputConfirmationPassword').val();
-  const $name = $('#signUpInputName').val();
-  const $surname = $('#signUpInputSurname').val();
-  const $dateOfBirth = $('#signUpInputDateOfBirth').val();
-  const $salary = $('#signUpInputSalary').val();
-  const $position = $('#signUpInputPosition').val();
-
-  const signUpReqData = {
-    employeeData: {
-      username: $username,
-      password: $password,
-      confirmationPassword: $confirmationPassword,
-      name: $name,
-      surname: $surname,
-      dateOfBirth: $dateOfBirth,
-      position: $position,
-      salary: $salary,
-    },
-  };
-
-  const signInReqData = {
-    userData: {
-      username: $username,
-      password: $password,
-    },
-  };
+  const signUpReqData = getParamsToSignUp();
+  const signInReqData = getParamsToSignIn('signUpClick');
 
   try {
     await signUp(signUpReqData);
@@ -91,15 +69,7 @@ const signUpClick = async () => {
 };
 
 const signInClick = async () => {
-  const $username = $('#signInInputUsername').val();
-  const $password = $('#signInInputPassword').val();
-
-  const reqData = {
-    userData: {
-      username: $username,
-      password: $password,
-    },
-  };
+  const reqData = getParamsToSignIn('signInClick');
 
   await signIn(reqData);
 
@@ -117,13 +87,12 @@ const logoutClick = async () => {
     console.log('%c%s', 'color: red;', e);
   }
 
-  getPaginatedSortedFilteredEmployees()
-    .then((currentPageEmployees) => {
-      fillEmployees(currentPageEmployees);
-    })
-    .catch((e) => {
-      console.log('%c%s', 'color: red;', e);
-    });
+  try {
+    const currentPageEmployees = await getPaginatedSortedFilteredEmployees();
+    fillEmployees(currentPageEmployees);
+  } catch (e) {
+    console.log('%c%s', 'color: red;', e);
+  }
 
   $('#authorization-group').show();
 };
