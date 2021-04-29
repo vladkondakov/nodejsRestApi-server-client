@@ -66,24 +66,37 @@ class Employee {
 
     // calculate previous according to employees length
     static async getPageEmployees(employees, offset, limit) {
+        const getActualOffset = () => {
+          let actualOffset = Math.floor(employees.length / limit);
+          if (employees.length % limit > 0) {
+            actualOffset += 1;
+          }
+
+          return actualOffset >= offset ? offset : actualOffset
+        }
+
+        const currentOffset = getActualOffset();
+
         const results = {};
-        const startIndex = (offset - 1) * limit;
+        const startIndex = (currentOffset - 1) * limit;
         const endIndex = startIndex + limit;
 
         if (startIndex > 0) {
             results.previous = {
-                offset: offset - 1,
+                offset: currentOffset - 1,
                 limit
             };
         }
         if (endIndex < employees.length) {
             results.next = {
-                offset: offset + 1,
+                offset: currentOffset + 1,
                 limit
             };
         }
 
         results.pageEmployees = employees.slice(startIndex, endIndex);
+        results.currentOffset = currentOffset;
+        console.log(offset, currentOffset)
         return results;
     }
 }
