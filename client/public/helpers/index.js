@@ -40,7 +40,9 @@ const formUrl = (...urlParts) => {
 
 const addQueryParamsToURL = (url, queryParams) => {
   for (const [key, value] of Object.entries(queryParams)) {
-    url.searchParams.append(`${key}`, `${value}`);
+    if (value) {
+      url.searchParams.append(`${key}`, `${value}`);
+    }
   }
 
   return url;
