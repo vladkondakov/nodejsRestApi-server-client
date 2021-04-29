@@ -18,6 +18,10 @@ const getEmployeesWithSetNumber = (employees, compiledRow, offset) => {
   return employeesToReturn;
 };
 
+const setItemToLocalStorage = (itemName, item) => {
+  localStorage.setItem(itemName, JSON.stringify(item));
+};
+
 const getItemFromLocalStorage = (itemName) => {
   const item = JSON.parse(localStorage.getItem(itemName));
   return item;
@@ -56,4 +60,5 @@ export {
   formUrl,
   addQueryParamsToURL,
   calcExpiresInTime,
+  setItemToLocalStorage,
 };

@@ -20,8 +20,9 @@ const getEmployeesData = async (queryParams) => {
   return employeesData;
 };
 
-const getEmployeeData = async () => {
-  const { accessToken, username } = getItemFromLocalStorage('currentUser');
+const getEmployeeData = async (username) => {
+  const accessToken = getItemFromLocalStorage('currentUser')?.accessToken;
+
   const urlToGetEmployees = formUrl(BASE_EMPLOYEES_URL, username);
 
   const response = await fetch(urlToGetEmployees, {
@@ -43,7 +44,8 @@ const getEmployeeData = async () => {
 };
 
 const editEmployeeData = async (reqData) => {
-  const { accessToken, username } = getItemFromLocalStorage('currentUser');
+  const { accessToken } = getItemFromLocalStorage('currentUser');
+  const { usernameToEdit: username } = getItemFromLocalStorage('pageData');
   const urlToEditEmployee = formUrl(BASE_EMPLOYEES_URL, username);
 
   const response = await fetch(urlToEditEmployee, {
@@ -54,8 +56,6 @@ const editEmployeeData = async (reqData) => {
     },
     body: JSON.stringify(reqData),
   });
-
-  console.log(response);
 
   if (!response.ok) {
     const err = new Error(`${response.status}: ${response.statusText}`);
@@ -71,7 +71,6 @@ const editEmployeeData = async (reqData) => {
   return null;
 };
 
-//
 const getPaginatedSortedFilteredEmployees = async () => {
   const queryParams = getParamsToGetEmployees();
 
@@ -79,9 +78,32 @@ const getPaginatedSortedFilteredEmployees = async () => {
     const employees = await getEmployeesData(queryParams);
     return employees;
   } catch (e) {
-    console.log(e);
     return { pageEmployees: null };
   }
 };
 
-export { getEmployeesData, getEmployeeData, editEmployeeData, getPaginatedSortedFilteredEmployees };
+const deleteEmployee = async (username) => {
+  const { accessToken } = getItemFromLocalStorage('currentUser');
+  const urlToGetEmployees = formUrl(BASE_EMPLOYEES_URL, username);
+
+  const response = await fetch(urlToGetEmployees, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (!response.ok) {
+    const err = new Error(`${response.status}: ${response.statusText}`);
+    throw err;
+  }
+};
+
+export {
+  getEmployeesData,
+  getEmployeeData,
+  editEmployeeData,
+  getPaginatedSortedFilteredEmployees,
+  deleteEmployee,
+};

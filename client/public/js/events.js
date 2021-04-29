@@ -26,9 +26,9 @@ const editEmployeeClick = async () => {
     const valuesFromEditModal = getValuesFromEditModal();
     await editEmployeeData(valuesFromEditModal);
 
-    const employees = await getPaginatedSortedFilteredEmployees();
+    const { pageEmployees } = await getPaginatedSortedFilteredEmployees();
 
-    fillEmployees(employees);
+    fillEmployees(pageEmployees);
   } catch (e) {
     console.log('%s%v', 'color: red;', e);
   }
@@ -88,8 +88,8 @@ const logoutClick = async () => {
   }
 
   try {
-    const currentPageEmployees = await getPaginatedSortedFilteredEmployees();
-    fillEmployees(currentPageEmployees);
+    const { pageEmployees } = await getPaginatedSortedFilteredEmployees();
+    fillEmployees(pageEmployees);
   } catch (e) {
     console.log('%c%s', 'color: red;', e);
   }

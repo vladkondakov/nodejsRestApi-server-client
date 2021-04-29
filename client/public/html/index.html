@@ -22,38 +22,44 @@
 			  <td class="table-dark date-of-birth"><%= dateOfBirth %></td>
 			  <td class="table-dark position"><%= position %></td>
 			  <td class="table-dark salary"><%= salary %></td>
-			  <td class="table-dark view-profile">Edit</td>
+			  <td class="table-dark view-profile">
+          <a class="view-profile" href="#" data-bs-toggle="modal" data-bs-target="#modalEditEmployee">Edit</a>
+          /
+          <a class="delete-profile" href="#">Delete</a>
+        </td>
 			</tr>
 		</script>
 		
 		<!-- Edit employee template (insert in body)-->
 		<script id='template-employee-edit-modal' type="text/template">
-			<div class="form-row">
-				<div class="form-group col-md-4">
-					<label for="inputEditName">Name</label>
-					<input type="text" class="form-control" id="inputEditName" placeholder="Enter name" value="<%= name %>"/>
-				</div>
-				<div class="form-group col-md-4">
-					<label for="inputEditSurname">Surname</label>
-					<input type="text" class="form-control" id="inputEditSurname" placeholder="Enter surname" value="<%= surname %>"/>
-				</div>
-				<div class="form-group col-md-4">
-					<label for="inputEditDateOfBirth">Date of birth</label>
-					<input type="text" class="form-control" id="inputEditDateOfBirth" placeholder="Enter date of birth" value="<%= dateOfBirth %>"/>
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="inputEditSalary">Salary</label>
-				<input type="text" class="form-control" id="inputEditSalary" placeholder="Enter salary" value="<%= salary %>"/>
-			</div>
-			<div class="form-group">
-				<label for="inputEditPosition">Position</label>
-				<select id="inputEditPosition" class="form-control">
-					<option value="Junior Software Engineer">Junior Software Engineer</option>
-					<option value="Software Engineer">Software Engineer</option>
-					<option value="Junior Backend Developer">Junior Backend Developer</option>
-				</select>
-			</div>
+      <div class="edit-form">
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="inputEditName">Name</label>
+            <input type="text" class="form-control" id="inputEditName" placeholder="Enter name" value="<%= name %>"/>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputEditSurname">Surname</label>
+            <input type="text" class="form-control" id="inputEditSurname" placeholder="Enter surname" value="<%= surname %>"/>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputEditDateOfBirth">Date of birth</label>
+            <input type="text" class="form-control" id="inputEditDateOfBirth" placeholder="Enter date of birth" value="<%= dateOfBirth %>"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputEditSalary">Salary</label>
+          <input type="text" class="form-control" id="inputEditSalary" placeholder="Enter salary" value="<%= salary %>"/>
+        </div>
+        <div class="form-group">
+          <label for="inputEditPosition">Position</label>
+          <select id="inputEditPosition" class="form-control">
+            <option value="Junior Software Engineer">Junior Software Engineer</option>
+            <option value="Software Engineer">Software Engineer</option>
+            <option value="Junior Backend Developer">Junior Backend Developer</option>
+          </select>
+        </div>
+      </div>
 		</script>
 
 

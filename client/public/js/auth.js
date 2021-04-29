@@ -1,4 +1,9 @@
-import { getItemFromLocalStorage, formUrl, calcExpiresInTime } from '../helpers/index.js';
+import {
+  getItemFromLocalStorage,
+  setItemToLocalStorage,
+  formUrl,
+  calcExpiresInTime,
+} from '../helpers/index.js';
 import { constants } from '../config/constants.js';
 
 const BASE_AUTH_URL = `${constants.BASE_URL}/auth`;
@@ -15,7 +20,6 @@ const signUp = async (reqData) => {
   });
 
   if (!response.ok) {
-    // console.log('%s%v%c', 'color: red;', response.status, response.statusText);
     const err = new Error(`${response.status}: ${response.statusText}`);
     throw err;
   }
@@ -47,7 +51,8 @@ const signIn = async (reqData) => {
     expiresInTime,
   };
 
-  localStorage.setItem('currentUser', JSON.stringify(currentUser));
+  setItemToLocalStorage('currentUser', currentUser);
+  // localStorage.setItem('currentUser', JSON.stringify(currentUser));
 };
 
 const logout = async () => {
