@@ -22,10 +22,8 @@
 			  <td class="table-dark date-of-birth"><%= dateOfBirth %></td>
 			  <td class="table-dark position"><%= position %></td>
 			  <td class="table-dark salary"><%= salary %></td>
-			  <td class="table-dark view-profile">
-          <a class="view-profile" href="#" data-bs-toggle="modal" data-bs-target="#modalEditEmployee">Edit</a>
-          /
-          <a class="delete-profile" href="#">Delete</a>
+			  <td class="table-dark profile-actions">
+          <a class="view-profile" href="#" data-bs-toggle="modal" data-bs-target="#modalEditEmployee">View Profile</a>
         </td>
 			</tr>
 		</script>
@@ -177,6 +175,7 @@
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 						<button id="edit-employee" type="button" class="btn btn-primary">Save changes</button>
+            <button id='delete-profile' type="button" class="btn btn-primary">Delete</button>
 					</div>
 				</div>
 			</div>

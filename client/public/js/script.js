@@ -5,6 +5,7 @@ import {
   filterClick,
   sortBySalaryClick,
   editEmployeeClick,
+  deleteEmployeeClick,
   previousPageClick,
   nextPageClick,
   signInClick,
@@ -19,7 +20,10 @@ $(document).ready(async () => {
 
   $('#applyFilter').on('click', filterClick);
   $('#applySortBySalary').on('click', sortBySalaryClick);
+
   $('#edit-employee').on('click', editEmployeeClick);
+  $('#delete-profile').on('click', deleteEmployeeClick);
+
   $('#previous-page').on('click', previousPageClick);
   $('#next-page').on('click', nextPageClick);
 

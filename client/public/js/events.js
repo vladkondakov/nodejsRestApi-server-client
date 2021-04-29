@@ -5,7 +5,12 @@ import {
   getParamsToSignIn,
   getParamsToSignUp,
 } from '../helpers/jquery-helpers.js';
-import { editEmployeeData, getPaginatedSortedFilteredEmployees } from './employees.js';
+import { getItemFromLocalStorage } from '../helpers/index.js';
+import {
+  editEmployeeData,
+  getPaginatedSortedFilteredEmployees,
+  deleteEmployee,
+} from './employees.js';
 import { signIn, signUp, logout } from './auth.js';
 
 const filterClick = async () => {
@@ -26,8 +31,23 @@ const editEmployeeClick = async () => {
     const valuesFromEditModal = getValuesFromEditModal();
     await editEmployeeData(valuesFromEditModal);
 
-    const { pageEmployees } = await getPaginatedSortedFilteredEmployees();
+    $('#modalEditEmployee').modal('hide');
 
+    const { pageEmployees } = await getPaginatedSortedFilteredEmployees();
+    fillEmployees(pageEmployees);
+  } catch (e) {
+    console.log('%s%v', 'color: red;', e);
+  }
+};
+
+const deleteEmployeeClick = async () => {
+  try {
+    const { usernameToEdit: username } = getItemFromLocalStorage('pageData');
+    await deleteEmployee(username);
+
+    $('#modalEditEmployee').modal('hide');
+
+    const { pageEmployees } = await getPaginatedSortedFilteredEmployees();
     fillEmployees(pageEmployees);
   } catch (e) {
     console.log('%s%v', 'color: red;', e);
@@ -59,9 +79,9 @@ const signUpClick = async () => {
     await signIn(signInReqData);
 
     $('#authorization-group').hide();
+    $('#signInModal').modal('hide');
 
     const { pageEmployees: currentPageEmployees } = await getPaginatedSortedFilteredEmployees();
-
     fillEmployees(currentPageEmployees);
   } catch (e) {
     console.log('%c%s', 'color: red;', e);
@@ -70,14 +90,13 @@ const signUpClick = async () => {
 
 const signInClick = async () => {
   const reqData = getParamsToSignIn('signInClick');
-
   await signIn(reqData);
 
-  const { pageEmployees: currentPageEmployees } = await getPaginatedSortedFilteredEmployees();
-
-  fillEmployees(currentPageEmployees);
-
   $('#authorization-group').hide();
+  $('#signInModal').modal('hide');
+
+  const { pageEmployees: currentPageEmployees } = await getPaginatedSortedFilteredEmployees();
+  fillEmployees(currentPageEmployees);
 };
 
 const logoutClick = async () => {
@@ -101,6 +120,7 @@ export {
   filterClick,
   sortBySalaryClick,
   editEmployeeClick,
+  deleteEmployeeClick,
   previousPageClick,
   nextPageClick,
   signUpClick,
