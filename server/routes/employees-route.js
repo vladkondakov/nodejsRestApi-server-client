@@ -9,8 +9,8 @@ router.route('/')
 
 // /employees/:id
 router.route('/:id')
-    .get(checkAuth, compareIdAndUser, EmployeeController.getEmployee)
-    .post(checkAuth, compareIdAndUser, employeeValidation, EmployeeController.updateEmployee)
-    .delete(checkAuth, compareIdAndUser, EmployeeController.deleteEmployee)
+    .get(checkAuth, EmployeeController.getEmployee)
+    .post(checkAuth, employeeValidation, EmployeeController.updateEmployee)
+    .delete(checkAuth, EmployeeController.deleteEmployee)
 
 module.exports = router;
