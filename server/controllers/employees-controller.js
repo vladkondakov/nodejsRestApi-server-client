@@ -30,9 +30,10 @@ const getAllEmployees = async (req, res, next) => {
 
 const updateEmployee = async (req, res, next) => {
     const employee = req.body;
-    const username = req.currentUser.username;
+    // const username = req.currentUser.username;
 
-    employee.username = username;
+    // employee.username = username;
+    employee.username = req.params.id
     const updatedEmployee = await Employee.updateEmployee(employee);
 
     return res.status(200).json({ embeddedItems: updatedEmployee });
