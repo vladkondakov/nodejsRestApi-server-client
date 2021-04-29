@@ -1,6 +1,6 @@
 import { getPaginatedSortedFilteredEmployees } from './employees.js';
 import { fillEmployees } from './fillers.js';
-import { getOffset } from '../helpers/jquery-helpers.js';
+import { setItemToLocalStorage, getItemFromLocalStorage } from '../helpers/index.js';
 
 const handlePagination = async () => {
   const { previous, next, pageEmployees } = await getPaginatedSortedFilteredEmployees();
@@ -24,14 +24,20 @@ const handlePagination = async () => {
 };
 
 const handlePaginationOnPrevClick = async () => {
-  const prevOffset = getOffset() - 1;
+  const { currentOffset } = getItemFromLocalStorage('currentOffset');
+  const prevOffset = currentOffset - 1;
+  setItemToLocalStorage('currentOffset', prevOffset);
+
   $('#page-number').text(prevOffset);
 
   await handlePagination();
 };
 
 const handlePaginationOnNextClick = async () => {
-  const nextOffset = getOffset() + 1;
+  const { currentOffset } = getItemFromLocalStorage('currentOffset');
+  const nextOffset = currentOffset + 1;
+  setItemToLocalStorage('currentOffset', nextOffset);
+
   $('#page-number').text(nextOffset);
 
   await handlePagination();

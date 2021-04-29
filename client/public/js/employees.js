@@ -1,4 +1,9 @@
-import { getItemFromLocalStorage, formUrl, addQueryParamsToURL } from '../helpers/index.js';
+import {
+  setItemToLocalStorage,
+  getItemFromLocalStorage,
+  formUrl,
+  addQueryParamsToURL,
+} from '../helpers/index.js';
 import { constants } from '../config/constants.js';
 import { getParamsToGetEmployees } from '../helpers/jquery-helpers.js';
 
@@ -76,6 +81,8 @@ const getPaginatedSortedFilteredEmployees = async () => {
 
   try {
     const employees = await getEmployeesData(queryParams);
+    setItemToLocalStorage('currentOffset', { currentOffset: employees.currentOffset });
+
     return employees;
   } catch (e) {
     return { pageEmployees: null };

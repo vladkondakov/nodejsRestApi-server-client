@@ -7,8 +7,6 @@ const disableViewProfile = () => {
   $viewProfileEl.removeClass('current-user');
 };
 
-const getOffset = () => +$('#page-number').text();
-
 const getParamsToGetEmployees = () => {
   const $name = $('#filterNameInput').val().toLowerCase();
   const $surname = $('#filterSurnameInput').val().toLowerCase();
@@ -24,13 +22,15 @@ const getParamsToGetEmployees = () => {
   };
 
   const $order = getOrder();
-  const $offset = getOffset();
+  const { currentOffset } = getItemFromLocalStorage('currentOffset');
+
+  const offset = currentOffset || +$('#page-number').text();
 
   return {
     name: $name,
     surname: $surname,
     order: $order,
-    offset: $offset,
+    offset,
     limit: constants.LIMIT,
   };
 };
@@ -109,7 +109,6 @@ const getValuesFromEditModal = () => {
 
 export {
   getParamsToGetEmployees,
-  getOffset,
   getValuesFromEditModal,
   disableViewProfile,
   getParamsToSignIn,

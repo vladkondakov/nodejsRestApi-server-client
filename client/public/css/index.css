@@ -8,3 +8,10 @@
 	bottom: -2px;
 	transform: rotate(180deg);
 }
+
+.inactiveLink {
+  pointer-events: none;
+  cursor: default;
+  color: white;
+  text-decoration: none;
+}

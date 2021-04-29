@@ -3,8 +3,7 @@ import {
   getItemFromLocalStorage,
   setItemToLocalStorage,
 } from '../helpers/index.js';
-import { getEmployeeData, deleteEmployee } from './employees.js';
-import { getOffset } from '../helpers/jquery-helpers.js';
+import { getEmployeeData } from './employees.js';
 
 const getEmployeeFillEditModal = async (username) => {
   const employee = await getEmployeeData(username);
@@ -26,13 +25,14 @@ const fillEmployees = (employeesToFill) => {
 
   const $templateEmployeesItem = $('#template-employees-item').html();
   const compiledRow = _.template($templateEmployeesItem);
-  const $offset = getOffset();
+  const { currentOffset } = getItemFromLocalStorage('currentOffset');
 
-  const employeesHtml = getEmployeesWithSetNumber(employeesToFill, compiledRow, $offset);
+  const employeesHtml = getEmployeesWithSetNumber(employeesToFill, compiledRow, currentOffset);
 
   $('#table-body-employees').append(employeesHtml);
 
   if (getItemFromLocalStorage('currentUser')) {
+    $('.view-profile').removeClass('inactiveLink');
     $('.view-profile').off('click');
 
     $('.view-profile').on('click', async (e) => {

@@ -15,6 +15,8 @@ import { signIn, signUp, logout } from './auth.js';
 
 const filterClick = async () => {
   const { pageEmployees } = await getPaginatedSortedFilteredEmployees();
+  const { currentOffset } = await getItemFromLocalStorage('currentOffset');
+  $('#page-number').text(currentOffset);
   fillEmployees(pageEmployees);
 };
 
@@ -102,6 +104,7 @@ const signInClick = async () => {
 const logoutClick = async () => {
   try {
     await logout();
+    $('#authorization-group').show();
   } catch (e) {
     console.log('%c%s', 'color: red;', e);
   }
@@ -112,8 +115,6 @@ const logoutClick = async () => {
   } catch (e) {
     console.log('%c%s', 'color: red;', e);
   }
-
-  $('#authorization-group').show();
 };
 
 export {
