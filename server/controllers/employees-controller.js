@@ -1,6 +1,7 @@
 const config = require('config');
 const LowDBOperations = require('../database/lowdb-service');
 const Employee = require('../services/employee-service');
+const ApiError = require('../error/apierror');
 
 const getPageEmployees = async (req, res, next) => {
     const queryOffset = req.query.offset;
@@ -43,6 +44,12 @@ const updateEmployee = async (req, res, next) => {
 
 const deleteEmployee = async (req, res, next) => {
     const id = req.params.id
+
+    if (!id) {
+      const err = ApiError.badRequest(`Wrong query param value: ${id}`);
+      return next(err);
+    }
+
     await Employee.deleteEmployee(id);
     await LowDBOperations.deleteElement('users', { username: id });
 
