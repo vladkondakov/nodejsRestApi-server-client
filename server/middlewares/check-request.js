@@ -9,7 +9,7 @@ exports.checkAuth = async function(req, res, next) {
     // 
     if (!(authHeader && authHeader.split(' ')[0] === 'Bearer')) {
         res.setHeader('WWW-Authenticate', 'Bearer realm="example"');
-        return res.end();
+        return res.json({ title: 'Wrong authorization header'});
     }
 
     const bearerToken = authHeader.split(' ')[1];

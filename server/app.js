@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const config = require('config');
 const bodyParser = require('body-parser');
 const apiErrorHandler = require('./error/apierror-handler');
 const ApiError = require('./error/apierror');
@@ -18,6 +17,9 @@ app.use(bodyParser.json());
 
 app.use('/auth', require('./routes/auth-route'));
 app.use('/employees', require('./routes/employees-route'));
+app.get('/', (req, res, next) => {
+  res.send('Hello there!');
+})
 
 app.use(function(req, res, next) {
     const err = ApiError.notFound(`The url you are trying to reach is not hosted on the server.`);
@@ -26,7 +28,7 @@ app.use(function(req, res, next) {
 
 app.use(apiErrorHandler);
 
-const PORT = config.get('PORT') || 9000;
+const PORT = process.env.PORT || 9000;
 
 const start = async () => {
     try {

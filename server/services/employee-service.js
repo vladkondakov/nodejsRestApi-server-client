@@ -96,7 +96,6 @@ class Employee {
 
         results.pageEmployees = employees.slice(startIndex, endIndex);
         results.currentOffset = currentOffset;
-        console.log(offset, currentOffset)
         return results;
     }
 }
