@@ -14,12 +14,12 @@ router.get('/', (req, res) => {
 
 app.use('/', router);
 
-const port = 3000;
+const PORT = process.env.PORT || 3000;
 
 const start = async () => {
   try {
-    app.listen(port, () => {
-      console.info(`App has been started on port ${port}...`);
+    app.listen(PORT, () => {
+      console.info(`App has been started on port ${PORT}...`);
     });
   } catch (err) {
     console.error('Server error', err.message);

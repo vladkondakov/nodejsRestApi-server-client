@@ -22,7 +22,7 @@ const getParamsToGetEmployees = () => {
   };
 
   const $order = getOrder();
-  const { currentOffset } = getItemFromLocalStorage('currentOffset');
+  const currentOffset = getItemFromLocalStorage('currentOffset')?.currentOffset;
 
   const offset = currentOffset || +$('#page-number').text();
 
